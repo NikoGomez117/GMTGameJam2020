@@ -1,0 +1,44 @@
+{
+    "name": "PlayerControls",
+    "maps": [
+        {
+            "name": "PlayerInput",
+            "id": "bf02eecd-682d-4849-bb71-48b61064d164",
+            "actions": [
+                {
+                    "name": "Affirmitive",
+                    "type": "Button",
+                    "id": "ee603818-da10-4901-b707-3715b2c38603",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "16b57b37-7ab5-4125-9d4e-d1ff795f6130",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Affirmitive",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "172e3b0a-59f9-4153-bb50-175940c2c622",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Affirmitive",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

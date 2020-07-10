@@ -1,0 +1,78 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Explosion7
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 0
+      generateMipMaps: 0
+      readable: 1
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings:
+    - serializedVersion: 3
+      m_BuildTarget: DefaultTexturePlatform
+      m_MaxTextureSize: 4096
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: -1
+      m_TextureCompression: 2
+      m_CompressionQuality: 50
+      m_CrunchedCompression: 0
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 0
+      m_AndroidETC2FallbackOverride: 0
+      m_ForceMaximumCompressionQuality_BC6H_BC7: 0
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 0
+      enableTightPacking: 0
+    variantMultiplier: 1
+    packables:
+    - {fileID: 21300000, guid: b6ef5342dbc9e644fb6b39ff865c7556, type: 3}
+    - {fileID: 21300000, guid: 1ada4e6bd5c09014195e8fc0b4a7a0ed, type: 3}
+    - {fileID: 21300000, guid: 5ee22890b4ad1334380f6eefc2abb755, type: 3}
+    - {fileID: 21300000, guid: 00ad576bbac2f434780ba46668519fdb, type: 3}
+    - {fileID: 21300000, guid: cfe479313b4240b418a84ea363f3d712, type: 3}
+    - {fileID: 21300000, guid: a35ad9718fe17714194d330554cfe5a6, type: 3}
+    - {fileID: 21300000, guid: 43ca2eb3b9578e14fa0cd88b1fde30b1, type: 3}
+    - {fileID: 21300000, guid: 4e816b228df3aca43875d2113ab5bd5e, type: 3}
+    - {fileID: 21300000, guid: 40964d7bcabf50e48a531d394a13baba, type: 3}
+    totalSpriteSurfaceArea: 295014
+    bindAsDefault: 1
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: 5ee22890b4ad1334380f6eefc2abb755, type: 3}
+  - {fileID: 21300000, guid: cfe479313b4240b418a84ea363f3d712, type: 3}
+  - {fileID: 21300000, guid: a35ad9718fe17714194d330554cfe5a6, type: 3}
+  - {fileID: 21300000, guid: 4e816b228df3aca43875d2113ab5bd5e, type: 3}
+  - {fileID: 21300000, guid: b6ef5342dbc9e644fb6b39ff865c7556, type: 3}
+  - {fileID: 21300000, guid: 43ca2eb3b9578e14fa0cd88b1fde30b1, type: 3}
+  - {fileID: 21300000, guid: 00ad576bbac2f434780ba46668519fdb, type: 3}
+  - {fileID: 21300000, guid: 1ada4e6bd5c09014195e8fc0b4a7a0ed, type: 3}
+  - {fileID: 21300000, guid: 40964d7bcabf50e48a531d394a13baba, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - 7_3
+  - 7_5
+  - 7_6
+  - 7_8
+  - 7_1
+  - 7_7
+  - 7_4
+  - 7_2
+  - 7_9
+  m_Tag: Explosion7
+  m_IsVariant: 0
