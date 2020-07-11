@@ -11,7 +11,12 @@ public class InputController : MonoBehaviour
     [SerializeField]
     GameObject targetingRedicule;
 
-    GameObject selectedObj = null;
+    public static GameObject selectedObj = null;
+
+    [SerializeField]
+    AudioSource selectSound;
+    [SerializeField]
+    AudioSource targetSound;
 
     public void OnSelect()
     {
@@ -24,6 +29,8 @@ public class InputController : MonoBehaviour
         {
             selectedObj = hit.collider.gameObject;
             targetingRedicule.SetActive(true);
+
+            selectSound.Play();
 
             Debug.Log("Selected Object: " + selectedObj.name);
         }
@@ -45,6 +52,8 @@ public class InputController : MonoBehaviour
         {
             Vector2 worldPos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
             selectedObj.SendMessage("OnTarget", worldPos);
+
+            targetSound.Play();
 
             Debug.Log("Target Position: " + worldPos);
         }

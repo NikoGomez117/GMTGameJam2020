@@ -38,7 +38,7 @@ public class SpaceShipSpawner : SubscribingMonoBehaviour
                 newShip.gameObject.SetActive(true);
             }
 
-            yield return new WaitForSeconds(5f);
+            yield return new WaitForSeconds(5f - Mathf.Log(Time.time,2) / 2);
         }
     }
 

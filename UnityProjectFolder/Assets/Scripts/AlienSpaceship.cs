@@ -24,7 +24,7 @@ public class AlienSpaceship : MonoBehaviour
         }
     }
 
-    float speed = 0.1f;
+    float speed = 0.2f;
     float spawnTime;
     float trueDistance;
 
@@ -55,13 +55,13 @@ public class AlienSpaceship : MonoBehaviour
 
     void InitPosition()
     {
-        transform.position = Vector2.right * 5f;
-        transform.RotateAround(Vector3.zero,Vector3.forward,Random.Range(0,6) * 60f);
+        transform.position = Vector2.right * 6.5f;
+        transform.RotateAround(Vector3.zero,Vector3.forward,Random.Range(0,36) * 10f);
     }
 
     void UpdatePosition()
     {
-        trueDistance = (5 - speed * (Time.time - spawnTime));
+        trueDistance = (6.5f - speed * (Time.time - spawnTime));
         transform.position = transform.position.normalized * trueDistance;
     }
 

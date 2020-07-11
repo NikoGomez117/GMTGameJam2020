@@ -23,6 +23,23 @@ public class Homeworld : SubscribingMonoBehaviour
         }
     }
 
+    public delegate void OnScrapChanged(float val);
+    public static OnScrapChanged scrapChanged;
+
+    private int _scrap = 0;
+    int Scrap
+    {
+        get
+        {
+            return _scrap;
+        }
+        set
+        {
+            _scrap = value;
+            scrapChanged?.Invoke(_scrap);
+        }
+    }
+
     void Awake()
     {
         instance = this;

@@ -13,6 +13,8 @@ public class UI_Orbit : SubscribingMonoBehaviour
     GameObject placementHighlight;
     [SerializeField]
     GameObject myTurret;
+    [SerializeField]
+    Transform ammoGage;
 
     protected override void Subscribe()
     {
@@ -33,6 +35,7 @@ public class UI_Orbit : SubscribingMonoBehaviour
     private void Update()
     {
         UpdateHighlight();
+        RepositionAmmoGage();
     }
 
     void InitOrbitRenderer()
@@ -61,7 +64,20 @@ public class UI_Orbit : SubscribingMonoBehaviour
         {
             GetComponent<SpriteRenderer>().enabled = false;
             placementHighlight.SetActive(false);
+
+            if (InputController.selectedObj == myTurret)
+            {
+                placementHighlight.SetActive(true);
+
+                placementHighlight.transform.position = worldPos.normalized * myRadius;
+                placementHighlight.transform.right = worldPos.normalized;
+            }
         }
+    }
+
+    void RepositionAmmoGage()
+    {
+        ammoGage.position = myTurret.transform.position + Vector3.up * 0.5f;
     }
 
     void EmptySelectionEvent()
