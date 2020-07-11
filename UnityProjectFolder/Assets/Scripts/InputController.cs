@@ -5,6 +5,9 @@ using UnityEngine.InputSystem;
 
 public class InputController : MonoBehaviour
 {
+    public delegate void OnEmptySelection();
+    public static OnEmptySelection emptySelection;
+
     [SerializeField]
     GameObject targetingRedicule;
 
@@ -30,6 +33,8 @@ public class InputController : MonoBehaviour
             targetingRedicule.SetActive(false);
 
             Debug.Log("No Object Selected");
+
+            emptySelection?.Invoke();
         }
     }
 

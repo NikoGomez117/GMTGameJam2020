@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class OrbitalTurrent : MonoBehaviour
 {
+    [SerializeField]
     float dis = 2.5f;
-    float orbitSpeed = 60f;
+
+    float orbitSpeed = 180f;
 
     float rotVel = 0f;
     float orbitTime = 0f;
@@ -16,10 +18,10 @@ public class OrbitalTurrent : MonoBehaviour
     Vector2 prvPos;
     Vector2 nextPos;
 
-    private void Start()
+    private void OnEnable()
     {
-        prvPos = Vector2.right * dis;
-        nextPos = Vector2.right * dis;
+        prvPos = transform.position.normalized * dis;
+        nextPos = transform.position.normalized * dis;
     }
 
     // Selection / Movement
