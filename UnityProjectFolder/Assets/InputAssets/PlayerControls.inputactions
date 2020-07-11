@@ -6,9 +6,17 @@
             "id": "bf02eecd-682d-4849-bb71-48b61064d164",
             "actions": [
                 {
-                    "name": "Affirmitive",
+                    "name": "Select",
                     "type": "Button",
                     "id": "ee603818-da10-4901-b707-3715b2c38603",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Target",
+                    "type": "Button",
+                    "id": "e3c35902-997f-425a-a4f8-8affe0684a62",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
@@ -17,23 +25,23 @@
             "bindings": [
                 {
                     "name": "",
-                    "id": "16b57b37-7ab5-4125-9d4e-d1ff795f6130",
-                    "path": "<Keyboard>/space",
+                    "id": "172e3b0a-59f9-4153-bb50-175940c2c622",
+                    "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Affirmitive",
+                    "action": "Select",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "172e3b0a-59f9-4153-bb50-175940c2c622",
-                    "path": "<Gamepad>/buttonSouth",
+                    "id": "51e118dd-85f2-46e0-9a1f-c81068db0293",
+                    "path": "<Mouse>/rightButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Affirmitive",
+                    "action": "Target",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
