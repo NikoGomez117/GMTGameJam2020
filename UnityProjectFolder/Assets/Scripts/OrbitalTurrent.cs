@@ -2,15 +2,25 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class OrbitalTurrent : SubscribingMonoBehaviour
+public class OrbitalTurrent : MonoBehaviour
 {
     float dis = 2.5f;
-    float rot = 0f;
     float orbitSpeed = 60f;
 
-    float targetRot = 0f;
     float rotVel = 0f;
     float orbitTime = 0f;
+
+    float rot = 0f;
+    float targetRot = 0f;
+
+    Vector2 prvPos;
+    Vector2 nextPos;
+
+    private void Start()
+    {
+        prvPos = Vector2.right * dis;
+        nextPos = Vector2.right * dis;
+    }
 
     // Selection / Movement
     private void Update()
@@ -26,14 +36,20 @@ public class OrbitalTurrent : SubscribingMonoBehaviour
 
     void Reposition()
     {
-        transform.position = Vector2.right * dis;
-        transform.RotateAround(Vector3.zero, Vector3.forward, rot);
+        transform.position = Vector3.RotateTowards(prvPos, nextPos, rot * Mathf.Deg2Rad, dis);
+        transform.right = transform.position.normalized;
     }
 
     public void OnTarget(Vector2 pos)
     {
-        targetRot = Vector2.Angle(Vector2.right,pos);
-        orbitTime = Mathf.Abs(targetRot - rot) / orbitSpeed;
+        rot = 0f;
+
+        prvPos = transform.position.normalized * dis;
+        nextPos = pos.normalized * dis;
+
+        targetRot = Vector2.Angle(prvPos, nextPos);
+
+        orbitTime = targetRot / orbitSpeed;
     }
 
     // Shooting
