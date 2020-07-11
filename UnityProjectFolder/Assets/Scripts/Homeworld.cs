@@ -38,7 +38,7 @@ public class Homeworld : SubscribingMonoBehaviour
         AlienSpaceship.alienInvaded -= AlienInvadedEvent;
     }
 
-    public void AlienInvadedEvent()
+    public void AlienInvadedEvent(AlienSpaceship alienShip)
     {
         _health -= 1;
     }

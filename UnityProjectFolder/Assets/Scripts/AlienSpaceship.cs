@@ -6,11 +6,8 @@ using Random = UnityEngine.Random;
 
 public class AlienSpaceship : MonoBehaviour
 {
-    public delegate void HealthChanged(float val);
-    public static HealthChanged healthChanged;
-
     private int _health = 2;
-    int Health
+    public int Health
     {
         get
         {
@@ -19,7 +16,11 @@ public class AlienSpaceship : MonoBehaviour
         set
         {
             _health = value;
-            healthChanged?.Invoke(_health);
+
+            // Edit the view here; 
+
+            if (_health <= 0)
+                alienDestroyed?.Invoke(this);
         }
     }
 
@@ -27,11 +28,14 @@ public class AlienSpaceship : MonoBehaviour
     float spawnTime;
     float trueDistance;
 
-    public delegate void OnAlienInvaded();
+    public delegate void OnAlienDestroyed(AlienSpaceship alienShip);
+    public static OnAlienDestroyed alienDestroyed;
+
+    public delegate void OnAlienInvaded(AlienSpaceship alienShip);
     public static OnAlienInvaded alienInvaded;
 
     // Start is called before the first frame update
-    void Start()
+    void OnEnable()
     {
         Spawn();
     }
@@ -65,8 +69,7 @@ public class AlienSpaceship : MonoBehaviour
     {
         if (trueDistance <= 0.1f)
         {
-            alienInvaded?.Invoke();
-            Destroy(gameObject);
+            alienInvaded?.Invoke(this);
         }
     }
 }

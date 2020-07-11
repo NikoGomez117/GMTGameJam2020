@@ -30,10 +30,12 @@ public class SubscribingMonoBehaviour : MonoBehaviour
     {
         if (subscribed && !subscribing)
         {
+            subscribed = false;
             UnSubscribe();
         }
         else if (!subscribed && subscribing)
         {
+            subscribed = true;
             Subscribe();
         }
         else
