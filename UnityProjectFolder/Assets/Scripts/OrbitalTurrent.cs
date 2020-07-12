@@ -19,7 +19,9 @@ public class OrbitalTurrent : SubscribingMonoBehaviour
     [SerializeField]
     Transform ammoGUI;
 
-    float _ammo = 10;
+    float maxAmmo = 6;
+
+    float _ammo = 6;
 
     public float Ammo
     {
@@ -29,7 +31,7 @@ public class OrbitalTurrent : SubscribingMonoBehaviour
         }
         set
         {
-            _ammo = Mathf.Min(value,10);
+            _ammo = Mathf.Min(value, maxAmmo);
 
             for (int i = 0; i < ammoGUI.childCount; i++)
             {
@@ -41,7 +43,7 @@ public class OrbitalTurrent : SubscribingMonoBehaviour
                 else if (i < _ammo)
                 {
                     ammoGUI.GetChild(i).gameObject.SetActive(true);
-                    ammoGUI.GetChild(i).GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, 0.09f * (_ammo == 10 ? 1f : _ammo % 1));
+                    ammoGUI.GetChild(i).GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, 0.09f * (_ammo == maxAmmo ? 1f : _ammo % 1));
                 }
                 else
                 {
@@ -81,8 +83,8 @@ public class OrbitalTurrent : SubscribingMonoBehaviour
     {
         base.OnEnable();
 
-        prvPos = transform.position.normalized * dis;
-        nextPos = transform.position.normalized * dis;
+        prvPos = transform.localPosition.normalized * dis;
+        nextPos = transform.localPosition.normalized * dis;
     }
 
     // Selection / Movement
@@ -110,9 +112,9 @@ public class OrbitalTurrent : SubscribingMonoBehaviour
 
     void Reposition()
     {
-        transform.position = Vector3.RotateTowards(prvPos, nextPos, rot * Mathf.Deg2Rad, dis);
+        transform.localPosition = Vector3.RotateTowards(prvPos, nextPos, rot * Mathf.Deg2Rad, dis);
 
-        if ((Vector2)transform.position != nextPos)
+        if ((Vector2)transform.localPosition != nextPos)
         {
             Ammo -= Time.deltaTime * Mathf.PI / 4f;
         }
@@ -123,8 +125,8 @@ public class OrbitalTurrent : SubscribingMonoBehaviour
     {
         rot = 0f;
 
-        prvPos = transform.position.normalized * dis;
-        nextPos = pos.normalized * dis;
+        prvPos = transform.localPosition.normalized * dis;
+        nextPos = transform.parent.InverseTransformPoint(pos).normalized * dis;
 
         targetRot = Vector2.Angle(prvPos, nextPos);
 
@@ -216,6 +218,8 @@ public class OrbitalTurrent : SubscribingMonoBehaviour
     void Fire()
     {
         fireSound.Play();
+
+        Camera.main.GetComponent<CameraController>().ShakeScreen(0.333f, 0.1f);
 
         Ammo -= 1;
 

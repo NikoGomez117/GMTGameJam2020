@@ -9,6 +9,21 @@ EditorBuildSettings:
     path: Assets/Scenes/GameController.unity
     guid: 36de977946b353646834e8df05fae8a5
   - enabled: 1
-    path: Assets/Scenes/OrbitalPrototype.unity
-    guid: 6a32f0a954615d045beede233a52a9c6
+    path: Assets/Scenes/Orbital_Level1.unity
+    guid: bcde5db9eaa7cba4385ffa1acdeb237d
+  - enabled: 1
+    path: Assets/Scenes/Orbital_Level2.unity
+    guid: 71ca990aeb6cee343b5a6b219a087a21
+  - enabled: 1
+    path: Assets/Scenes/Orbital_Level3.unity
+    guid: 4897690e7571d674fadd4b8287b656e1
+  - enabled: 1
+    path: Assets/Scenes/Orbital_Level4.unity
+    guid: 4074c975962e0b8458f282bfec7412bc
+  - enabled: 1
+    path: Assets/Scenes/Orbital_Level5.unity
+    guid: 6db482afa59231145b6c906176fcd5f4
+  - enabled: 1
+    path: Assets/Scenes/Orbital_Level6.unity
+    guid: a2437ce56346cc045ad9f7a7df6657a7
   m_configObjects: {}

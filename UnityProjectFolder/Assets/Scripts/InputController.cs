@@ -40,15 +40,11 @@ public class InputController : MonoBehaviour
         if (hit && IsSelectable(hit.collider.gameObject))
         {
             SelectObject(hit.collider.gameObject);
-
-            Debug.Log("Selected Object: " + selectedObj.name);
         }
         else
         {
             selectedObj = null;
             targetingRedicule.SetActive(false);
-
-            Debug.Log("No Object Selected");
 
             emptySelection?.Invoke();
         }
@@ -84,6 +80,11 @@ public class InputController : MonoBehaviour
         }*/
 
         emptyTarget?.Invoke();
+    }
+
+    public void OnSkipLevel()
+    {
+        GameController.instance.ChangeLevel();
     }
 
     private void Update()

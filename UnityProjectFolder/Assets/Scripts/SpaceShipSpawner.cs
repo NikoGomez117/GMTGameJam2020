@@ -6,6 +6,8 @@ public class SpaceShipSpawner : SubscribingMonoBehaviour
 {
     public static AlienSpaceship[] allShips;
 
+    public static bool spawning = true;
+
     [SerializeField]
     GameObject scrap;
 
@@ -37,7 +39,7 @@ public class SpaceShipSpawner : SubscribingMonoBehaviour
 
     IEnumerator SpawnerUpdate()
     {
-        while (true)
+        while (spawning)
         {
             if (inactivePool.Count > 0)
             {
@@ -45,7 +47,7 @@ public class SpaceShipSpawner : SubscribingMonoBehaviour
                 newShip.gameObject.SetActive(true);
             }
 
-            yield return new WaitForSeconds(Mathf.Max(5f - ((Time.time - sceneStartTime) / 20f),0.1f));
+            yield return new WaitForSeconds(Mathf.Max(6f - (GameController.instance.level / 3f) - ((Time.time - sceneStartTime) / 40f),0.1f));
         }
     }
 

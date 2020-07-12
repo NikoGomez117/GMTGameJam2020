@@ -16,6 +16,7 @@ public class UI_Homeworld_Scrap : SubscribingMonoBehaviour
     protected override void Subscribe()
     {
         Homeworld.scrapChanged += ScrapChangedEvent;
+        Homeworld.scrapRemainderChanged += ScrapRemainderChangedEvent;
 
         Scrap.scrapPickup += ScrapPickupEvent;
     }
@@ -23,6 +24,7 @@ public class UI_Homeworld_Scrap : SubscribingMonoBehaviour
     protected override void UnSubscribe()
     {
         Homeworld.scrapChanged -= ScrapChangedEvent;
+        Homeworld.scrapRemainderChanged -= ScrapRemainderChangedEvent;
 
         Scrap.scrapPickup -= ScrapPickupEvent;
     }
@@ -39,6 +41,11 @@ public class UI_Homeworld_Scrap : SubscribingMonoBehaviour
         {
             myAnim.Play("GainScrap");
         }
+    }
+
+    private void ScrapRemainderChangedEvent(float val)
+    {
+        GetComponent<Image>().fillAmount = Mathf.Max(val,0f);
     }
 
     void ScrapPickupEvent(Vector2 target)

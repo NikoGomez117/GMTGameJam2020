@@ -10,13 +10,15 @@ public class Homeworld : SubscribingMonoBehaviour
     [SerializeField]
     AudioSource resupplySound;
 
+    float sceneStartTime;
+
     float ammoResupply = 2.5f;
     GameObject prvTurret;
 
     public delegate void HealthChanged(float delta);
     public static HealthChanged healthChanged;
 
-    private int _health = 3;
+    private int _health = 1;
     public int Health
     {
         get
@@ -54,11 +56,34 @@ public class Homeworld : SubscribingMonoBehaviour
         }
     }
 
-    float scrapRemainder = 0f;
+    public delegate void OnScrapRemainderChanged(float val);
+    public static OnScrapRemainderChanged scrapRemainderChanged;
+
+    private float _scrapRemainder = 0f;
+    public float ScrapRemainder
+    {
+        get
+        {
+            return _scrapRemainder;
+        }
+        set
+        {
+            _scrapRemainder = value;
+            scrapRemainderChanged?.Invoke(_scrapRemainder);
+        }
+    }
 
     void Awake()
     {
         instance = this;
+    }
+
+    protected override void Start()
+    {
+        base.Start();
+
+        sceneStartTime = Time.time;
+        Health = 1;
     }
 
     protected override void Subscribe()
@@ -79,6 +104,7 @@ public class Homeworld : SubscribingMonoBehaviour
     private void Update()
     {
         Resupply();
+        CheckWarp();
     }
 
     void Resupply()
@@ -96,33 +122,50 @@ public class Homeworld : SubscribingMonoBehaviour
                 prvTurret = InputController.selectedObj;
             }
 
-            if (!resupplySound.isPlaying && prvTurret.GetComponent<OrbitalTurrent>().Ammo < 10 && scrapRemainder + Scrap > 0)
+            if (!resupplySound.isPlaying && prvTurret.GetComponent<OrbitalTurrent>().Ammo < 6 && ScrapRemainder + Scrap > 0)
             {
                 resupplySound.time = 0f;
                 resupplySound.Play();
+
+                GetComponent<LineRenderer>().enabled = true;
             }
-            else if (prvTurret.GetComponent<OrbitalTurrent>().Ammo >= 10 || scrapRemainder + Scrap <= 0)
+            else if (prvTurret.GetComponent<OrbitalTurrent>().Ammo >= 6 || ScrapRemainder + Scrap <= 0)
             {
                 resupplySound.Stop();
+
+                GetComponent<LineRenderer>().enabled = false;
             }
             else if(resupplySound.isPlaying)
             {
-                prvTurret.GetComponent<OrbitalTurrent>().Ammo += Time.deltaTime * ammoResupply;
-                scrapRemainder -= Time.deltaTime * ammoResupply / 4f;
+                GetComponent<LineRenderer>().SetPositions( new Vector3[] { 
+                    transform.position,
+                    prvTurret.transform.position
+                });
 
-                if (scrapRemainder < 0)
+                prvTurret.GetComponent<OrbitalTurrent>().Ammo += Time.deltaTime * ammoResupply;
+                ScrapRemainder -= Time.deltaTime * ammoResupply / 4f;
+
+                if (ScrapRemainder < 0)
                 {
                     if (Scrap > 0)
                     {
                         Scrap -= 1;
-                        scrapRemainder += 1f;
+                        ScrapRemainder += 1f;
                     }
                     else
                     {
-                        scrapRemainder = 0f;
+                        ScrapRemainder = 0f;
                     }
                 }
             }
+        }
+    }
+
+    void CheckWarp()
+    {
+        if (Time.time - sceneStartTime >= GameController.instance.totalGameTime)
+        {
+            GameController.instance.ChangeLevel();
         }
     }
 }

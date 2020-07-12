@@ -19,6 +19,13 @@ public class UI_Orbit : SubscribingMonoBehaviour
     [SerializeField]
     AudioSource targetSound;
 
+    static GameObject orbitLock = null;
+
+    private void Awake()
+    {
+        orbitLock = null;
+    }
+
     protected override void Subscribe()
     {
         InputController.emptySelection += EmptySelectionEvent;
@@ -46,8 +53,9 @@ public class UI_Orbit : SubscribingMonoBehaviour
     void InitOrbitRenderer()
     {
         MaterialPropertyBlock myBlock = new MaterialPropertyBlock();
+
         myBlock.Clear();
-        myBlock.SetColor("_Color", Color.cyan);
+        myBlock.SetColor("_Color", GetComponent<SpriteRenderer>().material.color);
         myBlock.SetFloat("_Distance", myRadius);
 
         GetComponent<SpriteRenderer>().SetPropertyBlock(myBlock);
@@ -57,32 +65,28 @@ public class UI_Orbit : SubscribingMonoBehaviour
     {
         Vector2 worldPos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
 
-        if (/*!myTurret.activeSelf && */ Mathf.Abs(Vector2.Distance(worldPos, Vector2.zero) - myRadius) < zoneThickness)
+        if (/*!myTurret.activeSelf && */ Mathf.Abs(Vector2.Distance(worldPos, transform.position) - myRadius) < zoneThickness && (orbitLock == null || orbitLock == gameObject))
         {
-            GetComponent<SpriteRenderer>().enabled = true;
+            orbitLock = gameObject;
+
+            GetComponent<SpriteRenderer>().color = Color.white - new Color(0,0,0,0.25f);
             placementHighlight.SetActive(true);
 
-            placementHighlight.transform.position = worldPos.normalized * myRadius;
-            placementHighlight.transform.right = worldPos.normalized;
+            placementHighlight.transform.localPosition = transform.InverseTransformPoint(worldPos).normalized * myRadius;
+            placementHighlight.transform.right = transform.InverseTransformPoint(worldPos).normalized;
         }
-        else
+        else if(orbitLock == gameObject)
         {
-            GetComponent<SpriteRenderer>().enabled = false;
+            orbitLock = null;
+
+            GetComponent<SpriteRenderer>().color = Color.white - new Color(0, 0, 0, 0.75f);
             placementHighlight.SetActive(false);
-
-            /*if (InputController.selectedObj == myTurret)
-            {
-                placementHighlight.SetActive(true);
-
-                placementHighlight.transform.position = worldPos.normalized * myRadius;
-                placementHighlight.transform.right = worldPos.normalized;
-            }*/
         }
     }
 
     void RepositionAmmoGage()
     {
-        ammoGage.position = myTurret.transform.position + Vector3.up * 0.5f;
+        ammoGage.position = myTurret.transform.position - Vector3.up * 0.5f;
     }
 
     void EmptySelectionEvent()
@@ -107,7 +111,7 @@ public class UI_Orbit : SubscribingMonoBehaviour
     {
         Vector2 worldPos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
 
-        if (myTurret.activeSelf && Mathf.Abs(Vector2.Distance(worldPos, Vector2.zero) - myRadius) < zoneThickness)
+        if (myTurret.activeSelf && Mathf.Abs(Vector2.Distance(worldPos, transform.position) - myRadius) < zoneThickness && orbitLock == gameObject)
         {
             targetSound.Play();
             myTurret.SendMessage("OnTarget", worldPos);
