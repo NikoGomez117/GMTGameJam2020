@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Homeworld : SubscribingMonoBehaviour
 {
@@ -27,6 +28,11 @@ public class Homeworld : SubscribingMonoBehaviour
             int delta = value - _health;
             _health = value;
             healthChanged?.Invoke(delta);
+
+            if (_health <= 0)
+            {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            }
         }
     }
 
