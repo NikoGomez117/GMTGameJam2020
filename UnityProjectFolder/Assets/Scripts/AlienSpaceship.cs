@@ -6,6 +6,9 @@ using Random = UnityEngine.Random;
 
 public class AlienSpaceship : MonoBehaviour
 {
+    [SerializeField]
+    GameObject damageSprites;
+
     private int _health = 2;
     public int Health
     {
@@ -18,6 +21,11 @@ public class AlienSpaceship : MonoBehaviour
             _health = value;
 
             // Edit the view here; 
+
+            if (_health == 1)
+            {
+                damageSprites.SetActive(true);
+            }
 
             if (_health <= 0)
                 alienDestroyed?.Invoke(this);
@@ -57,6 +65,7 @@ public class AlienSpaceship : MonoBehaviour
     {
         transform.position = Vector2.right * 6.5f;
         transform.RotateAround(Vector3.zero,Vector3.forward,Random.Range(0,36) * 10f);
+        transform.right = -transform.position.normalized;
     }
 
     void UpdatePosition()

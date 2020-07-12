@@ -19,9 +19,9 @@ public class OrbitalTurrent : SubscribingMonoBehaviour
     [SerializeField]
     Transform ammoGUI;
 
-    int _ammo = 10;
+    float _ammo = 10;
 
-    int Ammo
+    float Ammo
     {
         get
         {
@@ -33,9 +33,15 @@ public class OrbitalTurrent : SubscribingMonoBehaviour
 
             for (int i = 0; i < ammoGUI.childCount; i++)
             {
-                if (i < _ammo)
+                if (i < _ammo - 1)
                 {
                     ammoGUI.GetChild(i).gameObject.SetActive(true);
+                    ammoGUI.GetChild(i).GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, 0.09f);
+                }
+                else if (i < _ammo)
+                {
+                    ammoGUI.GetChild(i).gameObject.SetActive(true);
+                    ammoGUI.GetChild(i).GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, 0.09f * (_ammo % 1));
                 }
                 else
                 {
@@ -46,7 +52,7 @@ public class OrbitalTurrent : SubscribingMonoBehaviour
     }
 
     float orbitSpeed = 1080f;
-    float attackRange = 3f;
+    float attackRange = 2.75f;
     float attackSpeed = 0.5f;
 
     float startRotTime;
@@ -82,20 +88,19 @@ public class OrbitalTurrent : SubscribingMonoBehaviour
     // Selection / Movement
     private void Update()
     {
-        UpdateMovement();
-        Reposition();
-
         if (Ammo > 0)
         {
+            UpdateMovement();
+            Reposition();
             TargetEnemy();
 
             if (targetShip != null)
             {
                 transform.right = (targetShip.transform.position - transform.position).normalized;
             }
-
-            ShootingUpdate();
         }
+
+        ShootingUpdate();
     }
 
     void UpdateMovement()
@@ -106,6 +111,11 @@ public class OrbitalTurrent : SubscribingMonoBehaviour
     void Reposition()
     {
         transform.position = Vector3.RotateTowards(prvPos, nextPos, rot * Mathf.Deg2Rad, dis);
+
+        if ((Vector2)transform.position != nextPos)
+        {
+            Ammo -= Time.deltaTime * Mathf.PI / 2f;
+        }
         // transform.right = Vector3.RotateTowards(prvPos, nextPos, rot * Mathf.Deg2Rad, dis);
     }
 
@@ -155,7 +165,7 @@ public class OrbitalTurrent : SubscribingMonoBehaviour
     {
         if (shootingBehaviour == null)
         {
-            if (targetShip != null)
+            if (targetShip != null && Ammo > 0)
             {
                 shootingBehaviour = ShootRoutine();
                 StartCoroutine(shootingBehaviour);
@@ -163,7 +173,7 @@ public class OrbitalTurrent : SubscribingMonoBehaviour
         }
         else
         {
-            if (targetShip == null)
+            if ((targetShip == null || Ammo <= 0) && shootingBehaviour != null)
             {
                 chargeSound.Stop();
 

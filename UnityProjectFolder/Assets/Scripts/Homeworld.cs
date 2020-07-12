@@ -27,7 +27,7 @@ public class Homeworld : SubscribingMonoBehaviour
     public static OnScrapChanged scrapChanged;
 
     private int _scrap = 0;
-    int Scrap
+    public int Scrap
     {
         get
         {

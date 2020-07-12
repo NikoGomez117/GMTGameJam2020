@@ -5,6 +5,8 @@ using UnityEngine.InputSystem;
 
 public class InputController : MonoBehaviour
 {
+    public static InputController instance;
+
     public delegate void OnEmptySelection();
     public static OnEmptySelection emptySelection;
 
@@ -17,20 +19,24 @@ public class InputController : MonoBehaviour
     AudioSource selectSound;
     [SerializeField]
     AudioSource targetSound;
+    [SerializeField]
+    AudioSource pickupSound;
+
+    private void Awake()
+    {
+        instance = this;
+    }
 
     public void OnSelect()
     {
         // Mouse Raycast Too Select Object
         Ray worldRay = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
 
-        RaycastHit hit;
+        RaycastHit2D hit = Physics2D.GetRayIntersection(worldRay);
 
-        if (Physics.Raycast(worldRay, out hit, 1000) && IsSelectable(hit.collider.gameObject))
+        if (hit && IsSelectable(hit.collider.gameObject))
         {
-            selectedObj = hit.collider.gameObject;
-            targetingRedicule.SetActive(true);
-
-            selectSound.Play();
+            SelectObject(hit.collider.gameObject);
 
             Debug.Log("Selected Object: " + selectedObj.name);
         }
@@ -42,6 +48,22 @@ public class InputController : MonoBehaviour
             Debug.Log("No Object Selected");
 
             emptySelection?.Invoke();
+        }
+    }
+
+    public void SelectObject(GameObject obj)
+    {
+        switch (obj.tag)
+        {
+            case "OrbitalTurret":
+                selectedObj = obj;
+                targetingRedicule.SetActive(true);
+                selectSound.Play();
+                break;
+            case "Scrap":
+                pickupSound.Play();
+                obj.SendMessage("OnPickup");
+                break;
         }
     }
 
@@ -74,6 +96,7 @@ public class InputController : MonoBehaviour
 
     public bool IsSelectable(GameObject target)
     {
-        return target.CompareTag("OrbitalTurret");
+        return target.CompareTag("OrbitalTurret") 
+            || target.CompareTag("Scrap");
     }
 }

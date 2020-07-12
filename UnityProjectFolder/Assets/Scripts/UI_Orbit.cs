@@ -52,13 +52,13 @@ public class UI_Orbit : SubscribingMonoBehaviour
     {
         Vector2 worldPos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
 
-        if (!myTurret.activeSelf && Mathf.Abs(Vector2.Distance(worldPos, Vector2.zero) - myRadius) < zoneThickness)
+        if (/*!myTurret.activeSelf && */ Mathf.Abs(Vector2.Distance(worldPos, Vector2.zero) - myRadius) < zoneThickness)
         {
             GetComponent<SpriteRenderer>().enabled = true;
-            placementHighlight.SetActive(true);
+            /*placementHighlight.SetActive(true);
 
             placementHighlight.transform.position = worldPos.normalized * myRadius;
-            placementHighlight.transform.right = worldPos.normalized;
+            placementHighlight.transform.right = worldPos.normalized;*/
         }
         else
         {
@@ -84,11 +84,17 @@ public class UI_Orbit : SubscribingMonoBehaviour
     {
         Vector2 worldPos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
 
+        if (InputController.selectedObj != myTurret && Mathf.Abs(Vector2.Distance(worldPos, Vector2.zero) - myRadius) < zoneThickness)
+        {
+            InputController.instance.SelectObject(myTurret);
+        }
+
+        /*
         if (!myTurret.activeSelf && Mathf.Abs(Vector2.Distance(worldPos, Vector2.zero) - myRadius) < zoneThickness)
         {
             myTurret.transform.position = worldPos.normalized * myRadius;
             myTurret.transform.right = worldPos.normalized;
             myTurret.SetActive(true);
-        }
+        }*/
     }
 }

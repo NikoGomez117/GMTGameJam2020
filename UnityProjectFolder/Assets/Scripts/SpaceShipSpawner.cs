@@ -6,6 +6,9 @@ public class SpaceShipSpawner : SubscribingMonoBehaviour
 {
     public static AlienSpaceship[] allShips;
 
+    [SerializeField]
+    GameObject scrap;
+
     Queue<AlienSpaceship> inactivePool;
 
     private void Awake()
@@ -44,6 +47,7 @@ public class SpaceShipSpawner : SubscribingMonoBehaviour
 
     void Despawn(AlienSpaceship alienShip)
     {
+        Instantiate(scrap, alienShip.transform.position, Quaternion.identity);
         alienShip.gameObject.SetActive(false);
         inactivePool.Enqueue(alienShip);
     }
