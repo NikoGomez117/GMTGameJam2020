@@ -16,6 +16,9 @@ public class UI_Orbit : SubscribingMonoBehaviour
     [SerializeField]
     Transform ammoGage;
 
+    [SerializeField]
+    AudioSource targetSound;
+
     protected override void Subscribe()
     {
         InputController.emptySelection += EmptySelectionEvent;
@@ -106,6 +109,7 @@ public class UI_Orbit : SubscribingMonoBehaviour
 
         if (myTurret.activeSelf && Mathf.Abs(Vector2.Distance(worldPos, Vector2.zero) - myRadius) < zoneThickness)
         {
+            targetSound.Play();
             myTurret.SendMessage("OnTarget", worldPos);
         }
     }

@@ -11,8 +11,12 @@ public class SpaceShipSpawner : SubscribingMonoBehaviour
 
     Queue<AlienSpaceship> inactivePool;
 
+    float sceneStartTime;
+
     private void Awake()
     {
+        sceneStartTime = Time.time;
+
         allShips = transform.GetComponentsInChildren<AlienSpaceship>(true);
         inactivePool = new Queue<AlienSpaceship>(allShips);
 
@@ -41,7 +45,7 @@ public class SpaceShipSpawner : SubscribingMonoBehaviour
                 newShip.gameObject.SetActive(true);
             }
 
-            yield return new WaitForSeconds(Mathf.Max(5f - (Time.time / 20f),0.1f));
+            yield return new WaitForSeconds(Mathf.Max(5f - ((Time.time - sceneStartTime) / 20f),0.1f));
         }
     }
 
