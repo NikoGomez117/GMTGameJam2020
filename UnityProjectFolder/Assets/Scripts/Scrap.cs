@@ -5,6 +5,10 @@ using UnityEngine.InputSystem;
 
 public class Scrap : MonoBehaviour
 {
+    public delegate void OnScrapPickup(Vector2 pos);
+    public static OnScrapPickup scrapPickup;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -19,6 +23,7 @@ public class Scrap : MonoBehaviour
     public void OnPickup()
     {
         Homeworld.instance.Scrap += 1;
+        scrapPickup?.Invoke(transform.position);
         Destroy(gameObject);
     }
 }

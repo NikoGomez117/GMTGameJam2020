@@ -21,7 +21,7 @@ public class OrbitalTurrent : SubscribingMonoBehaviour
 
     float _ammo = 10;
 
-    float Ammo
+    public float Ammo
     {
         get
         {
@@ -29,7 +29,7 @@ public class OrbitalTurrent : SubscribingMonoBehaviour
         }
         set
         {
-            _ammo = value;
+            _ammo = Mathf.Min(value,10);
 
             for (int i = 0; i < ammoGUI.childCount; i++)
             {
@@ -41,7 +41,7 @@ public class OrbitalTurrent : SubscribingMonoBehaviour
                 else if (i < _ammo)
                 {
                     ammoGUI.GetChild(i).gameObject.SetActive(true);
-                    ammoGUI.GetChild(i).GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, 0.09f * (_ammo % 1));
+                    ammoGUI.GetChild(i).GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, 0.09f * (_ammo == 10 ? 1f : _ammo % 1));
                 }
                 else
                 {
@@ -114,7 +114,7 @@ public class OrbitalTurrent : SubscribingMonoBehaviour
 
         if ((Vector2)transform.position != nextPos)
         {
-            Ammo -= Time.deltaTime * Mathf.PI / 2f;
+            Ammo -= Time.deltaTime * Mathf.PI / 4f;
         }
         // transform.right = Vector3.RotateTowards(prvPos, nextPos, rot * Mathf.Deg2Rad, dis);
     }

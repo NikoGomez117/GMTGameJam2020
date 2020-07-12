@@ -76,7 +76,7 @@ public class AlienSpaceship : MonoBehaviour
 
     void CheckInvasion()
     {
-        if (trueDistance <= 0.1f)
+        if (trueDistance <= 0.5f)
         {
             alienInvaded?.Invoke(this);
         }

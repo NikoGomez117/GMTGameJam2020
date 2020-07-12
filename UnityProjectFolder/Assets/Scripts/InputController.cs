@@ -10,6 +10,9 @@ public class InputController : MonoBehaviour
     public delegate void OnEmptySelection();
     public static OnEmptySelection emptySelection;
 
+    public delegate void OnEmptyTarget();
+    public static OnEmptyTarget emptyTarget;
+
     [SerializeField]
     GameObject targetingRedicule;
 
@@ -70,7 +73,7 @@ public class InputController : MonoBehaviour
     public void OnTarget()
     {
         // Broadcast The Position In Worldspace
-        if (selectedObj != null)
+        /*if (selectedObj != null)
         {
             Vector2 worldPos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
             selectedObj.SendMessage("OnTarget", worldPos);
@@ -78,7 +81,9 @@ public class InputController : MonoBehaviour
             targetSound.Play();
 
             Debug.Log("Target Position: " + worldPos);
-        }
+        }*/
+
+        emptyTarget?.Invoke();
     }
 
     private void Update()
