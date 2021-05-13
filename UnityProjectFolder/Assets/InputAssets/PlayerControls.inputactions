@@ -28,6 +28,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "Quit",
+                    "type": "Button",
+                    "id": "8dba896e-b17d-4dbd-aa4c-214e8d3d5bd1",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -61,6 +69,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "SkipLevel",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e2d955b5-93e9-4eba-9c52-fd7eab93bb9e",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Quit",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

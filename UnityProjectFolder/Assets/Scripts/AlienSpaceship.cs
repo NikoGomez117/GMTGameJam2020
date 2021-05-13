@@ -6,6 +6,12 @@ using Random = UnityEngine.Random;
 
 public class AlienSpaceship : MonoBehaviour
 {
+    public delegate void OnAlienDestroyed(AlienSpaceship alienShip);
+    public static OnAlienDestroyed alienDestroyed;
+
+    public delegate void OnAlienInvaded(AlienSpaceship alienShip);
+    public static OnAlienInvaded alienInvaded;
+
     [SerializeField]
     GameObject damageSprites;
 
@@ -35,12 +41,6 @@ public class AlienSpaceship : MonoBehaviour
     float speed = 0.2f;
     float spawnTime;
     float trueDistance;
-
-    public delegate void OnAlienDestroyed(AlienSpaceship alienShip);
-    public static OnAlienDestroyed alienDestroyed;
-
-    public delegate void OnAlienInvaded(AlienSpaceship alienShip);
-    public static OnAlienInvaded alienInvaded;
 
     // Start is called before the first frame update
     void OnEnable()

@@ -22,7 +22,7 @@ public class UI_GameTimer : MonoBehaviour
 
     void SetTimer()
     {
-        TimeSpan ts = TimeSpan.FromSeconds(GameController.instance.totalGameTime - (Time.time - levelStartTime));
+        TimeSpan ts = TimeSpan.FromSeconds(OBV_LevelManager.instance.totalGameTime - (Time.time - levelStartTime));
         GetComponent<TextMeshProUGUI>().text = "JUMP IN" + "\n " + ts.ToString("m':'ss");
     }
 }

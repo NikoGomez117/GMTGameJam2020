@@ -19,7 +19,7 @@ public class Scrap : MonoBehaviour
 
         transform.right = Random.insideUnitCircle;
 
-        Camera.main.GetComponent<CameraController>().ShakeScreen(1f,0.25f);
+        Camera.main.GetComponent<OBV_CameraManager>().ShakeScreen(2f,0.25f);
     }
 
     public void OnPickup()

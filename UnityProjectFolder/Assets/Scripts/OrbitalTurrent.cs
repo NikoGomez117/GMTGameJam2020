@@ -101,6 +101,10 @@ public class OrbitalTurrent : SubscribingMonoBehaviour
                 transform.right = (targetShip.transform.position - transform.position).normalized;
             }
         }
+        else if((Vector2)transform.localPosition != nextPos)
+        {
+            startRotTime = Time.time - (((rot / orbitSpeed) * (2 * Mathf.PI * dis)));
+        }
 
         ShootingUpdate();
     }
@@ -146,7 +150,7 @@ public class OrbitalTurrent : SubscribingMonoBehaviour
         targetShip = null;
         AlienSpaceship closestShip = null;
 
-        foreach (AlienSpaceship ap in SpaceShipSpawner.allShips)
+        foreach (AlienSpaceship ap in OBV_SpaceShipSpawner.allShips)
         {
             if (!ap.gameObject.activeSelf)
                 continue;
@@ -219,7 +223,7 @@ public class OrbitalTurrent : SubscribingMonoBehaviour
     {
         fireSound.Play();
 
-        Camera.main.GetComponent<CameraController>().ShakeScreen(0.333f, 0.1f);
+        Camera.main.GetComponent<OBV_CameraManager>().ShakeScreen(0.5f, 0.1f);
 
         Ammo -= 1;
 

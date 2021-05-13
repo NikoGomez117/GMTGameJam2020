@@ -28,14 +28,14 @@ public class UI_Orbit : SubscribingMonoBehaviour
 
     protected override void Subscribe()
     {
-        InputController.emptySelection += EmptySelectionEvent;
-        InputController.emptyTarget += EmptyTargetEvent;
+        OBV_InputManager.emptySelection += EmptySelectionEvent;
+        OBV_InputManager.emptyTarget += EmptyTargetEvent;
     }
 
     protected override void UnSubscribe()
     {
-        InputController.emptySelection -= EmptySelectionEvent;
-        InputController.emptyTarget -= EmptyTargetEvent;
+        OBV_InputManager.emptySelection -= EmptySelectionEvent;
+        OBV_InputManager.emptyTarget -= EmptyTargetEvent;
     }
 
     protected override void Start()
