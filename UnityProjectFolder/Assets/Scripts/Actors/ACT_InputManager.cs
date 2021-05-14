@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class OBV_InputManager : MonoBehaviour
+public class ACT_InputManager : MonoBehaviour
 {
-    public static OBV_InputManager instance;
-
     public delegate void OnEmptySelection();
     public static OnEmptySelection emptySelection;
 
@@ -24,11 +22,6 @@ public class OBV_InputManager : MonoBehaviour
     AudioSource targetSound;
     [SerializeField]
     AudioSource pickupSound;
-
-    private void Awake()
-    {
-        instance = this;
-    }
 
     public void OnSelect()
     {

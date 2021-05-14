@@ -2,18 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ClickToRestart : SubscribingMonoBehaviour
+public class ClickToRestart : Observer
 {
     protected override void Subscribe()
     {
-        OBV_InputManager.emptySelection += NextLevel;
-        OBV_InputManager.emptyTarget += NextLevel;
+        ACT_InputManager.emptySelection += NextLevel;
+        ACT_InputManager.emptyTarget += NextLevel;
     }
 
     protected override void UnSubscribe()
     {
-        OBV_InputManager.emptySelection -= NextLevel;
-        OBV_InputManager.emptyTarget -= NextLevel;
+        ACT_InputManager.emptySelection -= NextLevel;
+        ACT_InputManager.emptyTarget -= NextLevel;
     }
 
     void NextLevel()

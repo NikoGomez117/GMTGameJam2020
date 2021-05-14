@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class OrbitalTurrent : SubscribingMonoBehaviour
+public class ACT_OrbitalTurrent : Actor
 {
+    public delegate void OnTurretFired();
+    public static OnTurretFired turretFired;
+
     [SerializeField]
     float dis = 2.5f;
 
@@ -68,7 +71,7 @@ public class OrbitalTurrent : SubscribingMonoBehaviour
     Vector2 prvPos;
     Vector2 nextPos;
 
-    AlienSpaceship targetShip;
+    ACT_AlienSpaceship targetShip;
 
     LineRenderer bolt;
 
@@ -79,10 +82,8 @@ public class OrbitalTurrent : SubscribingMonoBehaviour
         bolt = GetComponent<LineRenderer>();
     }
 
-    protected override void OnEnable()
+    void OnEnable()
     {
-        base.OnEnable();
-
         prvPos = transform.localPosition.normalized * dis;
         nextPos = transform.localPosition.normalized * dis;
     }
@@ -148,9 +149,9 @@ public class OrbitalTurrent : SubscribingMonoBehaviour
 
         float minDis = 10f;
         targetShip = null;
-        AlienSpaceship closestShip = null;
+        ACT_AlienSpaceship closestShip = null;
 
-        foreach (AlienSpaceship ap in OBV_SpaceShipSpawner.allShips)
+        foreach (ACT_AlienSpaceship ap in OBV_SpaceShipSpawner.allShips)
         {
             if (!ap.gameObject.activeSelf)
                 continue;
@@ -223,7 +224,7 @@ public class OrbitalTurrent : SubscribingMonoBehaviour
     {
         fireSound.Play();
 
-        Camera.main.GetComponent<OBV_CameraManager>().ShakeScreen(0.5f, 0.1f);
+        turretFired?.Invoke();
 
         Ammo -= 1;
 

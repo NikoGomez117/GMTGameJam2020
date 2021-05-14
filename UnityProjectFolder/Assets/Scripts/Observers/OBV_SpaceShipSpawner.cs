@@ -2,16 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class OBV_SpaceShipSpawner : SubscribingMonoBehaviour
+public class OBV_SpaceShipSpawner : Observer
 {
-    public static AlienSpaceship[] allShips;
+    public static ACT_AlienSpaceship[] allShips;
 
     public static bool spawning = true;
 
     [SerializeField]
     GameObject scrap;
 
-    Queue<AlienSpaceship> inactivePool;
+    Queue<ACT_AlienSpaceship> inactivePool;
 
     float sceneStartTime;
 
@@ -19,22 +19,22 @@ public class OBV_SpaceShipSpawner : SubscribingMonoBehaviour
     {
         sceneStartTime = Time.time;
 
-        allShips = transform.GetComponentsInChildren<AlienSpaceship>(true);
-        inactivePool = new Queue<AlienSpaceship>(allShips);
+        allShips = transform.GetComponentsInChildren<ACT_AlienSpaceship>(true);
+        inactivePool = new Queue<ACT_AlienSpaceship>(allShips);
 
         StartCoroutine(SpawnerUpdate());
     }
 
     protected override void Subscribe()
     {
-        AlienSpaceship.alienDestroyed += Despawn;
-        AlienSpaceship.alienInvaded += Despawn;
+        ACT_AlienSpaceship.alienDestroyed += Despawn;
+        ACT_AlienSpaceship.alienInvaded += Despawn;
     }
 
     protected override void UnSubscribe()
     {
-        AlienSpaceship.alienDestroyed -= Despawn;
-        AlienSpaceship.alienInvaded -= Despawn;
+        ACT_AlienSpaceship.alienDestroyed -= Despawn;
+        ACT_AlienSpaceship.alienInvaded -= Despawn;
     }
 
     IEnumerator SpawnerUpdate()
@@ -43,7 +43,7 @@ public class OBV_SpaceShipSpawner : SubscribingMonoBehaviour
         {
             if (inactivePool.Count > 0)
             {
-                AlienSpaceship newShip = inactivePool.Dequeue();
+                ACT_AlienSpaceship newShip = inactivePool.Dequeue();
                 newShip.gameObject.SetActive(true);
             }
 
@@ -51,7 +51,7 @@ public class OBV_SpaceShipSpawner : SubscribingMonoBehaviour
         }
     }
 
-    void Despawn(AlienSpaceship alienShip)
+    void Despawn(ACT_AlienSpaceship alienShip)
     {
         Instantiate(scrap, alienShip.transform.position, Quaternion.identity);
         alienShip.gameObject.SetActive(false);

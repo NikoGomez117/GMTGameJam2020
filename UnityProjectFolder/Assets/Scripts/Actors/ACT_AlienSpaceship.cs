@@ -4,12 +4,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class AlienSpaceship : MonoBehaviour
+public class ACT_AlienSpaceship : MonoBehaviour
 {
-    public delegate void OnAlienDestroyed(AlienSpaceship alienShip);
+    public delegate void OnAlienDestroyed(ACT_AlienSpaceship alienShip);
     public static OnAlienDestroyed alienDestroyed;
 
-    public delegate void OnAlienInvaded(AlienSpaceship alienShip);
+    public delegate void OnAlienInvaded(ACT_AlienSpaceship alienShip);
     public static OnAlienInvaded alienInvaded;
 
     [SerializeField]

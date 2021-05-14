@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UI_Controller : MonoBehaviour
+public class OBV_UI_Controller : MonoBehaviour
 {
-    public static UI_Controller instance;
+    public static OBV_UI_Controller instance;
 
     public Sprite[] numSprites;
 

@@ -2,9 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SubscribingMonoBehaviour : MonoBehaviour
+public class Observer : MonoBehaviour
 {
     bool subscribed = false;
+
+    public static object instance;
+
+    protected virtual void Awake()
+    {
+        instance = this;
+    }
 
     protected virtual void Start()
     {

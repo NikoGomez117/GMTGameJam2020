@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UI_Homeworld_Scrap : SubscribingMonoBehaviour
+public class OBV_UI_Homeworld_Scrap : Observer
 {
     [SerializeField]
     Image myRenderer;
@@ -15,23 +15,23 @@ public class UI_Homeworld_Scrap : SubscribingMonoBehaviour
 
     protected override void Subscribe()
     {
-        Homeworld.scrapChanged += ScrapChangedEvent;
-        Homeworld.scrapRemainderChanged += ScrapRemainderChangedEvent;
+        ACT_HomeworldStats.scrapChanged += ScrapChangedEvent;
+        ACT_HomeworldStats.scrapRemainderChanged += ScrapRemainderChangedEvent;
 
         Scrap.scrapPickup += ScrapPickupEvent;
     }
 
     protected override void UnSubscribe()
     {
-        Homeworld.scrapChanged -= ScrapChangedEvent;
-        Homeworld.scrapRemainderChanged -= ScrapRemainderChangedEvent;
+        ACT_HomeworldStats.scrapChanged -= ScrapChangedEvent;
+        ACT_HomeworldStats.scrapRemainderChanged -= ScrapRemainderChangedEvent;
 
         Scrap.scrapPickup -= ScrapPickupEvent;
     }
 
     private void ScrapChangedEvent(float delta)
     {
-        myRenderer.sprite = UI_Controller.instance.numSprites[Homeworld.instance.Scrap];
+        myRenderer.sprite = OBV_UI_Controller.instance.numSprites[((OBV_Homeworld)OBV_Homeworld.instance).GetScrap()];
 
         if (delta < 0)
         {

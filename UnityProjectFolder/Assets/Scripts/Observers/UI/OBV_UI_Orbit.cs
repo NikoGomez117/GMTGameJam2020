@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class UI_Orbit : SubscribingMonoBehaviour
+public class OBV_UI_Orbit : Observer
 {
     float zoneThickness = 0.5f;
 
@@ -28,14 +28,14 @@ public class UI_Orbit : SubscribingMonoBehaviour
 
     protected override void Subscribe()
     {
-        OBV_InputManager.emptySelection += EmptySelectionEvent;
-        OBV_InputManager.emptyTarget += EmptyTargetEvent;
+        ACT_InputManager.emptySelection += EmptySelectionEvent;
+        ACT_InputManager.emptyTarget += EmptyTargetEvent;
     }
 
     protected override void UnSubscribe()
     {
-        OBV_InputManager.emptySelection -= EmptySelectionEvent;
-        OBV_InputManager.emptyTarget -= EmptyTargetEvent;
+        ACT_InputManager.emptySelection -= EmptySelectionEvent;
+        ACT_InputManager.emptyTarget -= EmptyTargetEvent;
     }
 
     protected override void Start()

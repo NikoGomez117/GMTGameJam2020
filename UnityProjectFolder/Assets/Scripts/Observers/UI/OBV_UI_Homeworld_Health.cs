@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UI_Homeworld_Health : SubscribingMonoBehaviour
+public class OBV_UI_Homeworld_Health : Observer
 {
     [SerializeField]
     Image myRenderer;
@@ -13,16 +13,16 @@ public class UI_Homeworld_Health : SubscribingMonoBehaviour
 
     protected override void Subscribe()
     {
-        Homeworld.healthChanged += HealthChangedEvent;
+        ACT_HomeworldStats.healthChanged += HealthChangedEvent;
     }
     protected override void UnSubscribe()
     {
-        Homeworld.healthChanged -= HealthChangedEvent;
+        ACT_HomeworldStats.healthChanged -= HealthChangedEvent;
     }
 
     private void HealthChangedEvent(float delta)
     {
-        myRenderer.sprite = UI_Controller.instance.numSprites[Homeworld.instance.Health];
+        myRenderer.sprite = OBV_UI_Controller.instance.numSprites[((OBV_Homeworld)OBV_Homeworld.instance).GetHealth()];
 
         if (delta < 0)
         {

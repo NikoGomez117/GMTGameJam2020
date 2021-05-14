@@ -24,7 +24,7 @@ public class Scrap : MonoBehaviour
 
     public void OnPickup()
     {
-        Homeworld.instance.Scrap += 1;
+        ((OBV_Homeworld)OBV_Homeworld.instance).AddScrap(1);
         scrapPickup?.Invoke(transform.position);
         Destroy(gameObject);
     }

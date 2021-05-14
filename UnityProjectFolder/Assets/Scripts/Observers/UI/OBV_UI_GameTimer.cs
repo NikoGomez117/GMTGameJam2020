@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class UI_GameTimer : MonoBehaviour
+public class OBV_UI_GameTimer : MonoBehaviour
 {
     float levelStartTime;
 
@@ -18,11 +18,20 @@ public class UI_GameTimer : MonoBehaviour
     void Update()
     {
         SetTimer();
+        CheckWarp();
     }
 
     void SetTimer()
     {
         TimeSpan ts = TimeSpan.FromSeconds(OBV_LevelManager.instance.totalGameTime - (Time.time - levelStartTime));
         GetComponent<TextMeshProUGUI>().text = "JUMP IN" + "\n " + ts.ToString("m':'ss");
+    }
+
+    void CheckWarp()
+    {
+        if (Time.time - levelStartTime >= OBV_LevelManager.instance.totalGameTime)
+        {
+            OBV_LevelManager.instance.ChangeLevel();
+        }
     }
 }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class OBV_CameraManager : MonoBehaviour
+public class OBV_CameraManager : Observer
 {
     public AnimationCurve shakeCurve;
 
@@ -13,11 +13,27 @@ public class OBV_CameraManager : MonoBehaviour
     Vector3 initPos;
 
     float smoothTime = 0.2f;
-    Vector3 smoothVel = Vector3.zero; 
+    Vector3 smoothVel = Vector3.zero;
 
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
         initPos = transform.position;
+    }
+
+    protected override void Subscribe()
+    {
+        ACT_OrbitalTurrent.turretFired += TurretFiredShake;
+    }
+
+    protected override void UnSubscribe()
+    {
+        ACT_OrbitalTurrent.turretFired -= TurretFiredShake;
+    }
+
+    void TurretFiredShake()
+    {
+        ShakeScreen(0.5f,0.5f);
     }
 
     private void Update()

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
-public class OBV_LevelManager : MonoBehaviour
+public class OBV_LevelManager : Observer
 {
     public static OBV_LevelManager instance;
 
@@ -17,9 +17,25 @@ public class OBV_LevelManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
         ChangeLevel();
+    }
+
+    protected override void Subscribe()
+    {
+        ACT_HomeworldStats.homeworldDestroyed += Reload;
+    }
+
+    protected override void UnSubscribe()
+    {
+        ACT_HomeworldStats.homeworldDestroyed -= Reload;
+    }
+
+    void Reload()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public void ChangeLevel()
