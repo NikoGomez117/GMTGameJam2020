@@ -458,8 +458,8 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 3f4d57a36353a1b46ae594c8e2ab871b, type: 3}
     volume: 1
   resupplySound:
-    clip: {fileID: 0}
-    volume: 0
+    clip: {fileID: 8300000, guid: fcfde12c01725b542b59d97c307a7620, type: 3}
+    volume: 1
   targetOrbitSound:
     clip: {fileID: 0}
     volume: 0

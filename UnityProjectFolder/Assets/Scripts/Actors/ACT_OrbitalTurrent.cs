@@ -120,7 +120,11 @@ public class ACT_OrbitalTurrent : Actor
         {
             Ammo -= Time.deltaTime * Mathf.PI / 4f;
         }
-        // transform.right = Vector3.RotateTowards(prvPos, nextPos, rot * Mathf.Deg2Rad, dis);
+    }
+
+    public bool IsMaxAmmo()
+    {
+        return Ammo == maxAmmo;
     }
 
     public void OnTarget(Vector2 pos)

@@ -28,13 +28,11 @@ public class OBV_UI_Orbit : Observer
 
     protected override void Subscribe()
     {
-        ACT_InputManager.emptySelection += EmptySelectionEvent;
         ACT_InputManager.emptyTarget += EmptyTargetEvent;
     }
 
     protected override void UnSubscribe()
     {
-        ACT_InputManager.emptySelection -= EmptySelectionEvent;
         ACT_InputManager.emptyTarget -= EmptyTargetEvent;
     }
 
@@ -65,7 +63,7 @@ public class OBV_UI_Orbit : Observer
     {
         Vector2 worldPos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
 
-        if (/*!myTurret.activeSelf && */ Mathf.Abs(Vector2.Distance(worldPos, transform.position) - myRadius) < zoneThickness && (orbitLock == null || orbitLock == gameObject))
+        if (Mathf.Abs(Vector2.Distance(worldPos, transform.position) - myRadius) < zoneThickness && (orbitLock == null || orbitLock == gameObject))
         {
             orbitLock = gameObject;
 
@@ -87,24 +85,6 @@ public class OBV_UI_Orbit : Observer
     void RepositionAmmoGage()
     {
         ammoGage.position = myTurret.transform.position - Vector3.up * 0.5f;
-    }
-
-    void EmptySelectionEvent()
-    {
-        /*Vector2 worldPos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
-
-        if (myTurret.activeSelf && InputController.selectedObj != myTurret && Mathf.Abs(Vector2.Distance(worldPos, Vector2.zero) - myRadius) < zoneThickness)
-        {
-            InputController.instance.SelectObject(myTurret);
-        }*/
-
-        /*
-        if (!myTurret.activeSelf && Mathf.Abs(Vector2.Distance(worldPos, Vector2.zero) - myRadius) < zoneThickness)
-        {
-            myTurret.transform.position = worldPos.normalized * myRadius;
-            myTurret.transform.right = worldPos.normalized;
-            myTurret.SetActive(true);
-        }*/
     }
 
     void EmptyTargetEvent()

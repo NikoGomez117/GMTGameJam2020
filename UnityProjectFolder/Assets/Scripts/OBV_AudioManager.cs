@@ -40,6 +40,8 @@ public class OBV_AudioManager : Observer
 
         ACT_OrbitalTurrent.startTurretCharging += PlayChargeSound;
         ACT_OrbitalTurrent.turretFired += PlayTurretFireSound;
+
+        ACT_Resupplier.reSupply += PlayResupplySound;
     }
 
     protected override void UnSubscribe()
@@ -49,6 +51,8 @@ public class OBV_AudioManager : Observer
 
         ACT_OrbitalTurrent.startTurretCharging -= PlayChargeSound;
         ACT_OrbitalTurrent.turretFired -= PlayTurretFireSound;
+
+        ACT_Resupplier.reSupply -= PlayResupplySound;
     }
 
     void PlaySelectSound()
@@ -69,5 +73,10 @@ public class OBV_AudioManager : Observer
     void PlayTurretFireSound()
     {
         myAudioSource.PlayOneShot(fireSound.clip, masterVolume * fireSound.volume);
+    }
+
+    void PlayResupplySound()
+    {
+        myAudioSource.PlayOneShot(resupplySound.clip, masterVolume * resupplySound.volume);
     }
 }

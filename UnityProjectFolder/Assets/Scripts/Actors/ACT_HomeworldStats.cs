@@ -60,7 +60,23 @@ public class ACT_HomeworldStats : Actor
         }
         set
         {
-            _scrapRemainder = value;
+            if (value < 0)
+            {
+                if (Scrap >= 1)
+                {
+                    Scrap -= 1;
+                    _scrapRemainder = 1f + value;
+                }
+                else
+                {
+                    _scrapRemainder = 0f;
+                }
+            }
+            else
+            {
+                _scrapRemainder = value;
+            }
+
             scrapRemainderChanged?.Invoke(_scrapRemainder);
         }
     }

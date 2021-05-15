@@ -5,13 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class OBV_Homeworld : Observer
 {
-    [SerializeField]
-    AudioSource resupplySound;
-
     float sceneStartTime;
-
-    float ammoResupply = 2.5f;
-    GameObject prvTurret;
 
     ACT_HomeworldStats myStats;
 
@@ -73,71 +67,18 @@ public class OBV_Homeworld : Observer
         return myStats.Scrap;
     }
 
-    private void Update()
+    public void SetScrapRemainder(float value)
     {
-        Resupply();
-        CheckWarp();
+        myStats.ScrapRemainder = value;
     }
 
-    void Resupply()
+    public void AddScrapRemainder(float delta)
     {
-
-        if (ACT_InputManager.selectedObj != prvTurret)
-        {
-            resupplySound.Stop();
-        }
-
-        if (ACT_InputManager.selectedObj != null && ACT_InputManager.selectedObj.CompareTag("OrbitalTurret"))
-        {
-            if (ACT_InputManager.selectedObj != prvTurret)
-            {
-                prvTurret = ACT_InputManager.selectedObj;
-            }
-
-            if (!resupplySound.isPlaying && prvTurret.GetComponent<ACT_OrbitalTurrent>().Ammo < 6 && myStats.ScrapRemainder + myStats.Scrap > 0)
-            {
-                resupplySound.time = 0f;
-                resupplySound.Play();
-
-                GetComponent<LineRenderer>().enabled = true;
-            }
-            else if (prvTurret.GetComponent<ACT_OrbitalTurrent>().Ammo >= 6 || myStats.ScrapRemainder + myStats.Scrap <= 0)
-            {
-                resupplySound.Stop();
-
-                GetComponent<LineRenderer>().enabled = false;
-            }
-            else if(resupplySound.isPlaying)
-            {
-                GetComponent<LineRenderer>().SetPositions( new Vector3[] { 
-                    transform.position,
-                    prvTurret.transform.position
-                });
-
-                prvTurret.GetComponent<ACT_OrbitalTurrent>().Ammo += Time.deltaTime * ammoResupply;
-                myStats.ScrapRemainder -= Time.deltaTime * ammoResupply / 4f;
-
-                if (myStats.ScrapRemainder < 0)
-                {
-                    if (myStats.Scrap > 0)
-                    {
-                        myStats.Scrap -= 1;
-                        myStats.ScrapRemainder += 1f;
-                    }
-                    else
-                    {
-                        myStats.ScrapRemainder = 0f;
-                    }
-                }
-            }
-        }
+        myStats.ScrapRemainder += delta;
     }
 
-    void CheckWarp()
+    public float GetScrapRemainder()
     {
-        if (Time.time - sceneStartTime >= OBV_LevelManager.instance.totalGameTime)
-        {
-            OBV_LevelManager.instance.ChangeLevel();
-        }
+        return myStats.ScrapRemainder;
     }
 }
