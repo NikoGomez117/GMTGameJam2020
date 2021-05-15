@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class Scrap : MonoBehaviour
+public class ACT_Scrap : Actor
 {
     public delegate void OnScrapPickup(Vector2 pos);
     public static OnScrapPickup scrapPickup;

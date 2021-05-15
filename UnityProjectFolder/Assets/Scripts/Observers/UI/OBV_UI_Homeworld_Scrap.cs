@@ -18,7 +18,7 @@ public class OBV_UI_Homeworld_Scrap : Observer
         ACT_HomeworldStats.scrapChanged += ScrapChangedEvent;
         ACT_HomeworldStats.scrapRemainderChanged += ScrapRemainderChangedEvent;
 
-        Scrap.scrapPickup += ScrapPickupEvent;
+        ACT_Scrap.scrapPickup += ScrapPickupEvent;
     }
 
     protected override void UnSubscribe()
@@ -26,7 +26,7 @@ public class OBV_UI_Homeworld_Scrap : Observer
         ACT_HomeworldStats.scrapChanged -= ScrapChangedEvent;
         ACT_HomeworldStats.scrapRemainderChanged -= ScrapRemainderChangedEvent;
 
-        Scrap.scrapPickup -= ScrapPickupEvent;
+        ACT_Scrap.scrapPickup -= ScrapPickupEvent;
     }
 
     private void ScrapChangedEvent(float delta)

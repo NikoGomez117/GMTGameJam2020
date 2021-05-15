@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class OrbitSpin : MonoBehaviour
+public class ACT_OrbitSpin : Actor
 {
     [SerializeField]
     float spin = 0f;
