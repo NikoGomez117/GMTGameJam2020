@@ -1,25 +1,73 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class OBV_AudioManager : Observer
 {
-    float masterVolume = 0.1f;
-    AudioSource myAudio;
+    [SerializeField]
+    AudioSource myAudioSource;
 
-    protected override void Awake()
+    [Serializable]
+    public class AudioVolumePair
     {
-        base.Awake();
-        myAudio = GetComponent<AudioSource>();
+        public AudioClip clip;
+        public float volume;
     }
+
+    [SerializeField]
+    AudioVolumePair selectSound;
+    [SerializeField]
+    AudioVolumePair targetInputSound;
+    [SerializeField]
+    AudioVolumePair pickupSound;
+    [SerializeField]
+    AudioVolumePair chargeSound;
+    [SerializeField]
+    AudioVolumePair fireSound;
+    [SerializeField]
+    AudioVolumePair resupplySound;
+    [SerializeField]
+    AudioVolumePair targetOrbitSound;
+    
+    [SerializeField]
+    float masterVolume = 1f;
 
     protected override void Subscribe()
     {
-        // Stuff
+        ACT_InputManager.selectTurret += PlaySelectSound;
+        ACT_InputManager.selectScrap += PlayPickupSound;
+
+        ACT_OrbitalTurrent.startTurretCharging += PlayChargeSound;
+        ACT_OrbitalTurrent.turretFired += PlayTurretFireSound;
     }
 
     protected override void UnSubscribe()
     {
-        // Stuff
+        ACT_InputManager.selectTurret -= PlaySelectSound;
+        ACT_InputManager.selectScrap -= PlayPickupSound;
+
+        ACT_OrbitalTurrent.startTurretCharging -= PlayChargeSound;
+        ACT_OrbitalTurrent.turretFired -= PlayTurretFireSound;
+    }
+
+    void PlaySelectSound()
+    {
+        myAudioSource.PlayOneShot(selectSound.clip, masterVolume * selectSound.volume);
+    }
+
+    void PlayPickupSound()
+    {
+        myAudioSource.PlayOneShot(pickupSound.clip, masterVolume * pickupSound.volume);
+    }
+
+    void PlayChargeSound()
+    {
+        myAudioSource.PlayOneShot(chargeSound.clip, masterVolume * chargeSound.volume);
+    }
+
+    void PlayTurretFireSound()
+    {
+        myAudioSource.PlayOneShot(fireSound.clip, masterVolume * fireSound.volume);
     }
 }

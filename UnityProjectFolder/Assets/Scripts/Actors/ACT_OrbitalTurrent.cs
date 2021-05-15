@@ -7,14 +7,11 @@ public class ACT_OrbitalTurrent : Actor
     public delegate void OnTurretFired();
     public static OnTurretFired turretFired;
 
+    public delegate void OnStartTurretCharging();
+    public static OnStartTurretCharging startTurretCharging;
+
     [SerializeField]
     float dis = 2.5f;
-
-    [SerializeField]
-    AudioSource chargeSound;
-
-    [SerializeField]
-    AudioSource fireSound;
 
     [SerializeField]
     Transform turretHead;
@@ -182,8 +179,6 @@ public class ACT_OrbitalTurrent : Actor
         {
             if ((targetShip == null || Ammo <= 0) && shootingBehaviour != null)
             {
-                chargeSound.Stop();
-
                 StopCoroutine(shootingBehaviour);
                 shootingBehaviour = null;
             }
@@ -194,7 +189,7 @@ public class ACT_OrbitalTurrent : Actor
     {
         while (true)
         {
-            chargeSound.Play();
+            startTurretCharging?.Invoke();
             yield return new WaitForSeconds(0.5f / attackSpeed);
             Fire();
             StartCoroutine(AnimateBolt());
@@ -222,8 +217,6 @@ public class ACT_OrbitalTurrent : Actor
 
     void Fire()
     {
-        fireSound.Play();
-
         turretFired?.Invoke();
 
         Ammo -= 1;

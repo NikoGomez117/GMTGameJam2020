@@ -11,17 +11,16 @@ public class ACT_InputManager : MonoBehaviour
     public delegate void OnEmptyTarget();
     public static OnEmptyTarget emptyTarget;
 
+    public delegate void OnSelectTurret();
+    public static OnSelectTurret selectTurret;
+
+    public delegate void OnSelectScrap();
+    public static OnSelectScrap selectScrap;
+
     [SerializeField]
     GameObject targetingRedicule;
 
     public static GameObject selectedObj = null;
-
-    [SerializeField]
-    AudioSource selectSound;
-    [SerializeField]
-    AudioSource targetSound;
-    [SerializeField]
-    AudioSource pickupSound;
 
     public void OnSelect()
     {
@@ -50,28 +49,17 @@ public class ACT_InputManager : MonoBehaviour
             case "OrbitalTurret":
                 selectedObj = obj;
                 targetingRedicule.SetActive(true);
-                selectSound.Play();
+                selectTurret?.Invoke();
                 break;
             case "Scrap":
-                pickupSound.Play();
                 obj.SendMessage("OnPickup");
+                selectScrap?.Invoke();
                 break;
         }
     }
 
     public void OnTarget()
     {
-        // Broadcast The Position In Worldspace
-        /*if (selectedObj != null)
-        {
-            Vector2 worldPos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
-            selectedObj.SendMessage("OnTarget", worldPos);
-
-            targetSound.Play();
-
-            Debug.Log("Target Position: " + worldPos);
-        }*/
-
         emptyTarget?.Invoke();
     }
 
