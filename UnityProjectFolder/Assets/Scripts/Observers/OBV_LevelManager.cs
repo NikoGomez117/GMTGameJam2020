@@ -8,7 +8,7 @@ public class OBV_LevelManager : Observer
 {
     public static OBV_LevelManager instance;
 
-    public int level = -1;
+    public int level = 0;
     public float totalGameTime = 0f;
 
     private void Awake()
@@ -75,7 +75,7 @@ public class OBV_LevelManager : Observer
                 break;
         }
 
-        SceneManager.LoadScene("Orbital_Level" + level);
+        SceneManager.LoadScene(level);
     }
 
     public void Restart()
